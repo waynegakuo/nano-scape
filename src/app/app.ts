@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('nano-scape');
+  protected readonly title = signal('Nano Scape: AI-Powered 3D Scene Generator');
 }
