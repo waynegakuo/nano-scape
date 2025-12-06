@@ -33,8 +33,11 @@ export class Weather {
     this.error.set(null);
 
     const { city } = this.weatherForm.value;
+    const cityInfo = {
+      city: city
+    }
 
-    this.aiService.generateContent({concept: city})
+    this.aiService.generateContent({concept: 'Weather', data: cityInfo})
       .then(async res => {
         this.generatedImage.set(res);
         // logEvent(this.fireAnalytics, 'image_generated');
