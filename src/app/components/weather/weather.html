@@ -1,1 +1,40 @@
-<p>weather works!</p>
+<div class="weather-container">
+  <form [formGroup]="weatherForm" (ngSubmit)="generateImage()">
+    <div class="form-group">
+      <label for="city">City</label>
+      <input id="city" type="text" formControlName="city" placeholder="e.g., Nairobi" required>
+      @if (weatherForm.get('city')?.invalid && (weatherForm.get('city')?.dirty || weatherForm.get('city')?.touched)) {
+        <div class="error-text">
+          City is required.
+        </div>
+      }
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="weatherForm.invalid || isLoading()">
+      @if (isLoading()) {
+        <span class="loading-spinner"></span>
+        <span>Generating...</span>
+      } @else {
+        <span>Generate</span>
+      }
+    </button>
+  </form>
+
+  @if (isLoading()) {
+    <div class="loading-message">
+      <p>Generating your weather scape... this may take a moment.</p>
+    </div>
+  }
+
+  @if (generatedImage(); as image) {
+    <div class="image-display">
+      <img [src]="image" alt="Generated weather scape for {{ weatherForm.get('city')?.value }}">
+      <a [href]="image" download="weather-scape.png" class="download-button">Download Image</a>
+    </div>
+  }
+
+  @if (error(); as errorMessage) {
+    <div class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  }
+</div>
