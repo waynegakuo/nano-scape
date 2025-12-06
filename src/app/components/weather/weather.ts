@@ -34,6 +34,19 @@ export class Weather {
 
     const { city } = this.weatherForm.value;
 
+    this.aiService.generateContent({concept: city})
+      .then(async res => {
+        this.generatedImage.set(res);
+        // logEvent(this.fireAnalytics, 'image_generated');
+        this.isLoading.set(false);
+      })
+      .catch(error => {
+      // Stop message cycling on error as well
+      // this.loadingMessagesService.stopCycling();
+      this.isLoading.set(false);
+      console.error('Generation failed:', error);
+    })
+
     // this.genkitService.generate('Weather', { city }).subscribe({
     //   next: (response: any) => {
     //     // Assuming the service returns a URL to the image

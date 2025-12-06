@@ -11,6 +11,8 @@ export const environment = {
   },
   emulator: {
     host: 'localhost',
-    functionsPort: 5001
+    authPort: 9099,
+    firestorePort: 8081,
+    functionsPort: 5002
   }
 };
