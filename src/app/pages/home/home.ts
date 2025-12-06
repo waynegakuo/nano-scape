@@ -1,11 +1,23 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {Component, signal} from '@angular/core';
+import {Weather} from '../../components/weather/weather';
+import {Stadium} from '../../components/stadium/stadium';
+import {Company} from '../../components/company/company';
+import {Character} from '../../components/character/character';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, Weather, Stadium, Company, Character],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
 export class Home {
+  protected activeTab = signal('Weather')
+
+  protected selectTab(tab: string): void {
+    this.activeTab.set(tab);
+  }
+
 
 }

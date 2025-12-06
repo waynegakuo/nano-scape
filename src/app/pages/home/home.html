@@ -1,1 +1,25 @@
-<p>home works!</p>
+<section class="container">
+  <!-- Buttons to tab between Weather, Stadium, Character, and Company -->
+  <div class="tabs">
+    <button class="tab-button" [class.active]="activeTab() === 'Weather'" (click)="selectTab('Weather')">Weather</button>
+    <button class="tab-button" [class.active]="activeTab() === 'Stadium'" (click)="selectTab('Stadium')">Stadium</button>
+    <button class="tab-button" [class.active]="activeTab() === 'Character'" (click)="selectTab('Character')">Character</button>
+    <button class="tab-button" [class.active]="activeTab() === 'Company'" (click)="selectTab('Company')">Company</button>
+  </div>
+
+  <div>
+    @if (activeTab() === 'Weather') {
+      <app-weather></app-weather>
+    }
+    @else if (activeTab() === 'Stadium') {
+      <app-stadium></app-stadium>
+    }
+    @else if (activeTab() === 'Character') {
+      <app-character></app-character>
+    }
+    @else if (activeTab() === 'Company') {
+      <app-company></app-company>
+    }
+  </div>
+
+</section>
