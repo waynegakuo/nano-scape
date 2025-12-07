@@ -1,4 +1,10 @@
 <div class="weather-container">
+  <div class="weather-header">
+    <img ngSrc="/assets/illustrations/nano-scape-logo-emblem.svg" width="150" height="150" alt="Weather Scape Illustration">
+    <h2>Create a Weather Nano Scape</h2>
+    <p>Enter a city name to generate a beautiful miniature 3D scene that reflects its current weather conditions.</p>
+  </div>
+
   <form [formGroup]="weatherForm" (ngSubmit)="generateImage()">
     <div class="form-group">
       <label for="city">City</label>

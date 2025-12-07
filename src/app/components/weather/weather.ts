@@ -2,11 +2,12 @@ import { Component, inject, signal, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AiService } from '../../services/ai/ai.service';
 import { LoadingMessagesService } from '../../services/loading-messages/loading-messages.service';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-weather',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgOptimizedImage],
   templateUrl: './weather.html',
   styleUrls: ['./weather.scss'],
 })
