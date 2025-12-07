@@ -1,14 +1,16 @@
+const today = new Date().toDateString();
+
 export const SYSTEM_PROMPT = (concept: string, data: any) => {
   switch (concept) {
     case 'Weather':
       return `
         CITY=${data.city}
 
-        Present a clear, 45° top-down isometric miniature 3D cartoon scene of ${data.city}, featuring its most iconic landmarks and architectural elements. Use soft, refined textures with realistic PBR materials and gentle, lifelike lighting and shadows. Integrate the current weather conditions directly into the city environment to create an immersive atmospheric mood.
+        Present a clear, 45° top-down isometric miniature 3D cartoon scene of ${data.city}, featuring its most iconic landmarks and architectural elements. Use soft, refined textures with realistic PBR materials and gentle, lifelike lighting and shadows. Integrate the current weather for today's date: ${today} conditions directly into the city environment to create an immersive atmospheric mood.
 
         Use a clean, minimalistic composition with a soft, solid-colored background.
 
-        At the top-center, place the title “${data.city}” in large bold text, a prominent weather icon beneath it, then the date (small text) and temperature (medium text).
+        At the top-center, place the title ${data.city} in large bold text, a prominent weather icon beneath it, then the date (small text; make sure it's today's date ${today}) and temperature (medium text).
 
         All text must be centered with consistent spacing, and may subtly overlap the tops of the buildings.
 
