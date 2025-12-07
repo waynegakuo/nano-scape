@@ -21,7 +21,8 @@
 
   @if (isLoading()) {
     <div class="loading-message">
-      <p>Generating your weather scape... this may take a moment.</p>
+      <div class="generate-img-loading-spinner" aria-hidden="true"></div>
+      <p>{{ loadingMessagesService.currentMessage() }}</p>
     </div>
   }
 

@@ -8,7 +8,7 @@ import {Weather} from '../../components/weather/weather';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Weather, Stadium, Company, Character],
+  imports: [CommonModule, Stadium, Company, Character, Weather],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

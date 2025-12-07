@@ -5,21 +5,21 @@ import { Injectable, signal, computed } from '@angular/core';
 })
 export class LoadingMessagesService {
   private readonly messages = [
-    "🎨 Sprinkling some digital magic...",
-    "🤖 Teaching pixels to dance...",
-    "✨ Transforming imagination into reality...",
-    "🎭 Arranging photons for the perfect shot...",
-    "🔮 Consulting the AI crystal ball...",
-    "🎪 Orchestrating a visual masterpiece...",
-    "🌟 Brewing up some pixel perfection...",
-    "🎬 Directing your product's debut...",
-    "🎨 Mixing colors in the digital palette...",
-    "🚀 Launching creativity into orbit...",
-    "⚡ Charging up the imagination engine...",
-    "🎯 Aiming for visual excellence...",
-    "🔥 Igniting creative sparks...",
-    "💫 Weaving light and shadow...",
-    "🎪 Setting up the visual stage..."
+    "🏙️ Constructing your Nano Scape...",
+    "🤖 Assembling miniature marvels...",
+    "✨ Shrinking the world to your screen...",
+    "🔍 Focusing the nano-lenses...",
+    "🌍 Generating a pocket-sized universe...",
+    "🎨 Painting with microscopic brushes...",
+    "🏗️ Building your tiny metropolis...",
+    "💡 Powering up the nano-generators...",
+    "💎 Polishing the miniature details...",
+    "🧩 Piecing together your scape...",
+    "🔬 Analyzing the atomic structure...",
+    "🌟 Adding a touch of nano-magic...",
+    "🗺️ Charting the miniature world...",
+    "⚙️ Calibrating the scape engine...",
+    "⏳ Bending time and space for your scape..."
   ];
 
   private readonly currentMessageIndex = signal<number>(0);
