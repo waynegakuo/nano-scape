@@ -85,7 +85,7 @@ export const generate3DImageFlow = onCallGenkit(
     cors: isEmulated
       ? true
       : [
-        /^https:\/\/nano-scape(--[a-z0-9-]+)?\.web\.app$/, // Matches live site (nano-scape.web.app) and previews (nano-scape--<channel>.web.app)
+        /^https:\/\/nano-scape(--[a-z0-9-]+)?\.web\.app\/?$/, // Matches live site and previews, with or without a trailing slash.
       ],
   },
   _generate3DImageFlowLogic
