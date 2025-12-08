@@ -18,6 +18,4 @@ export class Home {
   protected selectTab(tab: string): void {
     this.activeTab.set(tab);
   }
-
-
 }
