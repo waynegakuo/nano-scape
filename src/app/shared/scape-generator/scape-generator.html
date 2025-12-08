@@ -1,0 +1,47 @@
+<div class="scape-container">
+  <div class="scape-header">
+    <img [ngSrc]="imageSrc" [width]="imageWidth" [height]="imageHeight" [alt]="imageAlt">
+    <h2>{{ title }}</h2>
+    <p>{{ description }}</p>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onGenerate()">
+    <div class="form-group">
+      <label [for]="formInputId">{{ formInputLabel }}</label>
+      <input [id]="formInputId" type="text" [formControlName]="formControlName" [placeholder]="formInputPlaceholder" required>
+      @if (form.get(formControlName)?.invalid && (form.get(formControlName)?.dirty || form.get(formControlName)?.touched)) {
+        <div class="error-text">
+          {{ formInputError }}
+        </div>
+      }
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid || isLoading()">
+      @if (isLoading()) {
+        <span class="loading-spinner"></span>
+        <span>Generating...</span>
+      } @else {
+        <span>Generate</span>
+      }
+    </button>
+  </form>
+
+  @if (isLoading()) {
+    <div class="loading-message" #loadingSection>
+      <div class="generate-img-loading-spinner" aria-hidden="true"></div>
+      <p>{{ loadingMessage }}</p>
+    </div>
+  }
+
+  @if (generatedImage(); as image) {
+    <div class="image-display">
+      <img [src]="image" [alt]="'Generated scape for ' + form.get(formControlName)?.value">
+      <a [href]="image" [download]="form.get(formControlName)?.value + '_' + currentTimestamp + '.png'" class="download-button">Download Image</a>
+    </div>
+  }
+
+  @if (error(); as errorMessage) {
+    <div class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  }
+</div>
