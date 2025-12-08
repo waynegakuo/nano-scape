@@ -21,6 +21,8 @@ export class Weather implements OnDestroy {
   private aiService = inject(AiService);
   public loadingMessagesService = inject(LoadingMessagesService);
 
+  currentTimestamp = Date.now();
+
   constructor() {
     this.weatherForm = this.formBuilder.group({
       city: ['', Validators.required],

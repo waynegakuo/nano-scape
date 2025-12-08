@@ -35,7 +35,7 @@
   @if (generatedImage(); as image) {
     <div class="image-display">
       <img [src]="image" alt="Generated weather scape for {{ weatherForm.get('city')?.value }}">
-      <a [href]="image" download="weather-scape.png" class="download-button">Download Image</a>
+      <a [href]="image" download="{{weatherForm.get('city')?.value}}_{{currentTimestamp}}.png" class="download-button">Download Image</a>
     </div>
   }
 
