@@ -18,7 +18,13 @@ export const SYSTEM_PROMPT = (concept: string, data: any) => {
       `;
     case 'Stadium':
       return `
-        Present a clear, 45° top-down isometric miniature 3D cartoon scene of ${data.stadiumName}, with soft refined textures, realistic PBR materials, and gentle lifelike lighting. Use a clean solid ${data.color} background. At the top-center, display the name of this stadium in large bold text, then directly beneath it show its real seating capacity in medium text, and place the official logo associated with this stadium below the capacity. All text must match the background contrast automatically (white or black). Centered layout, square 1080x1080 dimension.
+        First, identify the home stadium for the football club: ${data.team}.
+
+        Present a clear, 45° top-down isometric miniature 3D cartoon scene of that stadium, with soft refined textures, realistic PBR materials, and gentle lifelike lighting.
+
+        For the background, use a clean solid color. If a color is provided (${data.color}), use that. Otherwise, use the primary color of the football club that owns the stadium.
+
+        At the top-center, display the name of the stadium in large bold text, then directly beneath it show its real seating capacity in medium text, and place the official logo associated with the club/stadium below the capacity. All text must match the background contrast automatically (white or black). Centered layout, square 1080x1080 dimension.
       `;
     case 'Character':
         return `

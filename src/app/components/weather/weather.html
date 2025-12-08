@@ -1,47 +1,16 @@
-<div class="weather-container">
-  <div class="weather-header">
-    <img ngSrc="/assets/illustrations/nano-scape-logo-emblem.svg" width="150" height="150" alt="Weather Scape Illustration">
-    <h2>Create a Weather Nano Scape</h2>
-    <p>Enter a city name to generate a beautiful miniature 3D scene that reflects its current weather conditions.</p>
-  </div>
-
-  <form [formGroup]="weatherForm" (ngSubmit)="generateImage()">
-    <div class="form-group">
-      <label for="city">City</label>
-      <input id="city" type="text" formControlName="city" placeholder="e.g., Nairobi, Kenya" required>
-      @if (weatherForm.get('city')?.invalid && (weatherForm.get('city')?.dirty || weatherForm.get('city')?.touched)) {
-        <div class="error-text">
-          City is required.
-        </div>
-      }
-    </div>
-    <button class="btn btn-primary" type="submit" [disabled]="weatherForm.invalid || isLoading()">
-      @if (isLoading()) {
-        <span class="loading-spinner"></span>
-        <span>Generating...</span>
-      } @else {
-        <span>Generate</span>
-      }
-    </button>
-  </form>
-
-  @if (isLoading()) {
-    <div class="loading-message">
-      <div class="generate-img-loading-spinner" aria-hidden="true"></div>
-      <p>{{ loadingMessagesService.currentMessage() }}</p>
-    </div>
-  }
-
-  @if (generatedImage(); as image) {
-    <div class="image-display">
-      <img [src]="image" alt="Generated weather scape for {{ weatherForm.get('city')?.value }}">
-      <a [href]="image" download="{{weatherForm.get('city')?.value}}_{{currentTimestamp}}.png" class="download-button">Download Image</a>
-    </div>
-  }
-
-  @if (error(); as errorMessage) {
-    <div class="error-message">
-      <p>{{ errorMessage }}</p>
-    </div>
-  }
-</div>
+<app-scape-generator
+  [title]="'Create a Weather Nano Scape'"
+  [description]="'Enter a city name to generate a beautiful miniature 3D scene that reflects its current weather conditions.'"
+  [imageSrc]="'/assets/illustrations/nano-scape-logo-emblem.svg'"
+  [imageAlt]="'Weather Scape Illustration'"
+  [formInputLabel]="'City'"
+  [formInputId]="'city'"
+  [formControlName]="'city'"
+  [formInputPlaceholder]="'e.g., Nairobi, Kenya'"
+  [formInputError]="'City is required.'"
+  [isLoading]="isLoading"
+  [generatedImage]="generatedImage"
+  [error]="error"
+  [loadingMessage]="loadingMessagesService.currentMessage()"
+  (generate)="generateImage($event)">
+</app-scape-generator>

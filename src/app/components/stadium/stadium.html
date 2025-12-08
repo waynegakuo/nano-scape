@@ -1,1 +1,16 @@
-<p>stadium works!</p>
+<app-scape-generator
+  [title]="'Create a Stadium Nano Scape'"
+  [description]="'Enter a team name to generate a beautiful miniature 3D scene of its stadium.'"
+  [imageSrc]="'/assets/illustrations/nano-scape-logo-emblem.svg'"
+  [imageAlt]="'Stadium Scape Illustration'"
+  [formInputLabel]="'Team'"
+  [formInputId]="'team'"
+  [formControlName]="'team'"
+  [formInputPlaceholder]="'e.g., Manchester United'"
+  [formInputError]="'Team is required.'"
+  [isLoading]="isLoading"
+  [generatedImage]="generatedImage"
+  [error]="error"
+  [loadingMessage]="loadingMessagesService.currentMessage()"
+  (generate)="generateImage($event)">
+</app-scape-generator>

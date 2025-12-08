@@ -1,47 +1,34 @@
-import { Component, inject, signal, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, signal, OnDestroy, ViewChild } from '@angular/core';
 import { AiService } from '../../services/ai/ai.service';
 import { LoadingMessagesService } from '../../services/loading-messages/loading-messages.service';
-import {NgOptimizedImage} from '@angular/common';
+import { ScapeGenerator } from '../../shared/scape-generator/scape-generator';
 
 @Component({
   selector: 'app-weather',
   standalone: true,
-  imports: [ReactiveFormsModule, NgOptimizedImage],
+  imports: [ScapeGenerator],
   templateUrl: './weather.html',
   styleUrls: ['./weather.scss'],
 })
 export class Weather implements OnDestroy {
-  weatherForm: FormGroup;
+  @ViewChild(ScapeGenerator) scapeGenerator!: ScapeGenerator;
+
   isLoading = signal(false);
   generatedImage = signal<string | null>(null);
   error = signal<string | null>(null);
 
-  private formBuilder = inject(FormBuilder);
   private aiService = inject(AiService);
   public loadingMessagesService = inject(LoadingMessagesService);
 
-  currentTimestamp = Date.now();
-
-  constructor() {
-    this.weatherForm = this.formBuilder.group({
-      city: ['', Validators.required],
-    });
-  }
-
-  generateImage() {
-    if (this.weatherForm.invalid) {
-      return;
-    }
-
+  generateImage(formValue: any) {
     this.isLoading.set(true);
     this.generatedImage.set(null);
     this.error.set(null);
     this.loadingMessagesService.startCycling();
+    this.scapeGenerator.scrollIntoView();
 
-    const { city } = this.weatherForm.value;
     const cityInfo = {
-      city: city
+      city: formValue.city
     };
 
     this.aiService.generateContent({ concept: 'Weather', data: cityInfo })

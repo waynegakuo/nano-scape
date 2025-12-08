@@ -46,7 +46,8 @@
     }
 
     @media (max-width: 767.98px) {
-      //flex-direction: column;
+      margin: 1.5rem 0 0;
+      flex-direction: column;
 
       .powered-by-text {
         margin-right: 0;
