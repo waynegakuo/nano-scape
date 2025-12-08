@@ -8,7 +8,7 @@
   <form [formGroup]="weatherForm" (ngSubmit)="generateImage()">
     <div class="form-group">
       <label for="city">City</label>
-      <input id="city" type="text" formControlName="city" placeholder="e.g., Nairobi" required>
+      <input id="city" type="text" formControlName="city" placeholder="e.g., Nairobi, Kenya" required>
       @if (weatherForm.get('city')?.invalid && (weatherForm.get('city')?.dirty || weatherForm.get('city')?.touched)) {
         <div class="error-text">
           City is required.
