@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {Component, signal} from '@angular/core';
-import {Weather} from '../../components/weather/weather';
 import {Stadium} from '../../components/stadium/stadium';
 import {Company} from '../../components/company/company';
 import {Character} from '../../components/character/character';
+import {Weather} from '../../components/weather/weather';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Weather, Stadium, Company, Character],
+  imports: [CommonModule, Stadium, Company, Character, Weather],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
