@@ -1,3 +1,16 @@
-<section class="wip-container fade-in">
-  <app-work-in-progress></app-work-in-progress>
-</section>
+<app-scape-generator
+  [title]="'Create a Character Nano Scape'"
+  [description]="'Enter a character name to generate a beautiful miniature 3D scene of the character.'"
+  [imageSrc]="'/assets/illustrations/nano-scape-logo-emblem.svg'"
+  [imageAlt]="'Character Scape Illustration'"
+  [formInputLabel]="'Character'"
+  [formInputId]="'character'"
+  [formControlName]="'character'"
+  [formInputPlaceholder]="'e.g., A brave knight'"
+  [formInputError]="'Character is required.'"
+  [isLoading]="isLoading"
+  [generatedImage]="generatedImage"
+  [error]="error"
+  [loadingMessage]="loadingMessagesService.currentMessage()"
+  (generate)="generateImage($event)">
+</app-scape-generator>

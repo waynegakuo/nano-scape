@@ -1,14 +1,51 @@
-import { Component } from '@angular/core';
-import {WorkInProgress} from '../../pages/work-in-progress/work-in-progress';
+import { Component, inject, signal, OnDestroy, ViewChild } from '@angular/core';
+import { AiService } from '../../services/ai/ai.service';
+import { LoadingMessagesService } from '../../services/loading-messages/loading-messages.service';
+import { ScapeGenerator } from '../../shared/scape-generator/scape-generator';
 
 @Component({
   selector: 'app-character',
-  imports: [
-    WorkInProgress
-  ],
+  standalone: true,
+  imports: [ScapeGenerator],
   templateUrl: './character.html',
-  styleUrl: './character.scss',
+  styleUrls: ['./character.scss'],
 })
-export class Character {
+export class Character implements OnDestroy {
+  @ViewChild(ScapeGenerator) scapeGenerator!: ScapeGenerator;
 
+  isLoading = signal(false);
+  generatedImage = signal<string | null>(null);
+  error = signal<string | null>(null);
+
+  private aiService = inject(AiService);
+  public loadingMessagesService = inject(LoadingMessagesService);
+
+  generateImage(formValue: any) {
+    this.isLoading.set(true);
+    this.generatedImage.set(null);
+    this.error.set(null);
+    this.loadingMessagesService.startCycling();
+    this.scapeGenerator.scrollIntoView();
+
+    const characterInfo = {
+      character: formValue.character
+    };
+
+    this.aiService.generateContent({ concept: 'Character', data: characterInfo })
+      .then(async res => {
+        this.generatedImage.set(res);
+        this.isLoading.set(false);
+        this.loadingMessagesService.stopCycling();
+      })
+      .catch(error => {
+        this.isLoading.set(false);
+        this.loadingMessagesService.stopCycling();
+        this.error.set('An error occurred while generating the image. Please try again.');
+        console.error('Generation failed:', error);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.loadingMessagesService.stopCycling();
+  }
 }
