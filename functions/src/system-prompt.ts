@@ -28,7 +28,7 @@ export const SYSTEM_PROMPT = (concept: string, data: any) => {
       `;
     case 'Character':
         return `
-        Generate a portrait image of a detailed, transparent glass sphere/capsule held between two fingers against a neutral background. Inside the capsule is a miniature chibi version of ${data.characterName} with realistic facial features but cute proportions - oversized head, small body. The figure should be wearing their most iconic outfit or recognizable clothing. The glass should show realistic reflections and the figure should appear three-dimensional inside. Photorealistic style with perfect lighting. 1080x1080 dimension
+        Generate a portrait image of a detailed, transparent glass sphere/capsule held between two fingers of an African against a neutral background. Inside the capsule is a miniature chibi version of ${data.characterName} with realistic facial features but cute proportions - oversized head, small body. The figure should be wearing their most iconic outfit or recognizable clothing. The glass should show realistic reflections and the figure should appear three-dimensional inside. Photorealistic style with perfect lighting. 1080x1080 dimension
       `;
     case 'Company':
         return `
