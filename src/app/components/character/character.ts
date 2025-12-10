@@ -28,7 +28,7 @@ export class Character implements OnDestroy {
     this.scapeGenerator.scrollIntoView();
 
     const characterInfo = {
-      character: formValue.character
+      characterName: formValue.character
     };
 
     this.aiService.generateContent({ concept: 'Character', data: characterInfo })
