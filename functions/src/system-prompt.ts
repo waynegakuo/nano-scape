@@ -50,7 +50,7 @@ export const SYSTEM_PROMPT = (concept: string, data: any) => {
         Parameters:
 
         * Aspect ratio: ${data.aspectRatio || '1:1'}
-        * Date: ${data.date}
+        * Date: ${data.date || today}
         * Company name or stock ticker: ${data.companyName}
       `;
     default:
