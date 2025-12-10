@@ -1,3 +1,16 @@
-<section class="wip-container fade-in">
-  <app-work-in-progress></app-work-in-progress>
-</section>
+<app-scape-generator
+  [title]="'Create a Company Nano Scape'"
+  [description]="'Enter a company name to generate a beautiful miniature 3D scene of the company.'"
+  [imageSrc]="'/assets/illustrations/nano-scape-logo-emblem.svg'"
+  [imageAlt]="'Company Scape Illustration'"
+  [formInputLabel]="'Company'"
+  [formInputId]="'company'"
+  [formControlName]="'company'"
+  [formInputPlaceholder]="'e.g., Google'"
+  [formInputError]="'Company is required.'"
+  [isLoading]="isLoading"
+  [generatedImage]="generatedImage"
+  [error]="error"
+  [loadingMessage]="loadingMessagesService.currentMessage()"
+  (generate)="generateImage($event)">
+</app-scape-generator>
