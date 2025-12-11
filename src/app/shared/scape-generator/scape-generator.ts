@@ -1,7 +1,9 @@
-import {Component, EventEmitter, Input, Output, signal, ViewChild, ElementRef, OnDestroy, OnInit, inject} from '@angular/core';
+import {Component, EventEmitter, Input, Output, signal, ViewChild, ElementRef, OnDestroy, OnInit, inject, computed} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgOptimizedImage, CommonModule} from '@angular/common';
 import {LoadingMessagesService} from '../../services/loading-messages/loading-messages.service';
+import {AuthService} from '../../services/auth/auth.service';
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-scape-generator',
@@ -35,7 +37,11 @@ export class ScapeGenerator implements OnInit, OnDestroy {
   currentTimestamp = Date.now();
 
   private formBuilder = inject(FormBuilder);
+  private authService = inject(AuthService);
   public loadingMessagesService = inject(LoadingMessagesService);
+
+  readonly isAuthed = computed(() => this.authService.isAuthenticated());
+  readonly signingIn = signal(false);
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -44,10 +50,29 @@ export class ScapeGenerator implements OnInit, OnDestroy {
   }
 
   onGenerate() {
+    if (!this.isAuthed()) {
+      this.signIn();
+      return;
+    }
     if (this.form.invalid) {
       return;
     }
     this.generate.emit(this.form.value);
+  }
+
+  signIn(): void {
+    if (this.signingIn()) return;
+    this.signingIn.set(true);
+    this.authService.signInWithGoogle().pipe(take(1)).subscribe({
+      next: () => {
+        // After successful sign-in, proceed with generation
+        if (this.form.valid) {
+          this.generate.emit(this.form.value);
+        }
+      },
+      error: (err) => console.error('Sign-in failed', err),
+      complete: () => this.signingIn.set(false)
+    });
   }
 
   ngOnDestroy(): void {

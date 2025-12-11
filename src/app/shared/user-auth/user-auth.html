@@ -36,7 +36,7 @@
       [title]="displayName() || 'Account'"
     >
       @if (photoUrl()) {
-        <img [src]="photoUrl()!" alt="User avatar" class="avatar" />
+        <img [ngSrc]="photoUrl()!" width="32" height="32" alt="User avatar" class="avatar" />
       } @else {
         <span class="avatar avatar--initials" aria-hidden="true">{{ initials() }}</span>
       }
