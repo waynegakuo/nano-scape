@@ -4,11 +4,12 @@ import {Stadium} from '../../components/stadium/stadium';
 import {Company} from '../../components/company/company';
 import {Character} from '../../components/character/character';
 import {Weather} from '../../components/weather/weather';
+import { History } from '../../components/history/history';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Stadium, Company, Character, Weather],
+  imports: [CommonModule, Stadium, Company, Character, Weather, History],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
