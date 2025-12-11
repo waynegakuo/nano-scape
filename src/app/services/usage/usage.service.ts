@@ -25,11 +25,19 @@ export class UsageService {
     });
   }
 
+  private getTodayDateString(): string {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   private async checkUsage() {
     const userId = this.authService.getUserId();
     if (!userId) return;
 
-    const today = new Date().toISOString().split('T')[0];
+    const today = this.getTodayDateString();
     const usageDocRef = doc(this.firestore, `usage/${userId}/daily/${today}`);
 
     try {
@@ -54,7 +62,7 @@ export class UsageService {
     const userId = this.authService.getUserId();
     if (!userId) return;
 
-    const today = new Date().toISOString().split('T')[0];
+    const today = this.getTodayDateString();
     const usageDocRef = doc(this.firestore, `usage/${userId}/daily/${today}`);
 
     try {
