@@ -1,7 +1,8 @@
-import {Component, inject, signal, ViewChild} from '@angular/core';
+import {Component, inject, signal, ViewChild, OnDestroy} from '@angular/core';
 import {ScapeGenerator} from '../../shared/scape-generator/scape-generator';
 import {AiService} from '../../services/ai/ai.service';
 import {LoadingMessagesService} from '../../services/loading-messages/loading-messages.service';
+import {UsageService} from '../../services/usage/usage.service';
 
 @Component({
   selector: 'app-company',
@@ -11,7 +12,7 @@ import {LoadingMessagesService} from '../../services/loading-messages/loading-me
   templateUrl: './company.html',
   styleUrl: './company.scss',
 })
-export class Company {
+export class Company implements OnDestroy {
   @ViewChild(ScapeGenerator) scapeGenerator!: ScapeGenerator;
 
   isLoading = signal(false);
@@ -19,6 +20,7 @@ export class Company {
   error = signal<string | null>(null);
 
   private aiService = inject(AiService);
+  private usageService = inject(UsageService);
   public loadingMessagesService = inject(LoadingMessagesService);
 
   generateImage(formValue: any) {
@@ -34,7 +36,10 @@ export class Company {
 
     this.aiService.generateContent({ concept: 'Company', data: companyInfo })
       .then(async res => {
-        this.generatedImage.set(res);
+        if (res) {
+          this.generatedImage.set(res);
+          this.usageService.recordGeneration();
+        }
         this.isLoading.set(false);
         this.loadingMessagesService.stopCycling();
       })

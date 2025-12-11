@@ -2,6 +2,7 @@ import { Component, inject, signal, OnDestroy, ViewChild } from '@angular/core';
 import { AiService } from '../../services/ai/ai.service';
 import { LoadingMessagesService } from '../../services/loading-messages/loading-messages.service';
 import { ScapeGenerator } from '../../shared/scape-generator/scape-generator';
+import { UsageService } from '../../services/usage/usage.service';
 
 @Component({
   selector: 'app-character',
@@ -18,6 +19,7 @@ export class Character implements OnDestroy {
   error = signal<string | null>(null);
 
   private aiService = inject(AiService);
+  private usageService = inject(UsageService);
   public loadingMessagesService = inject(LoadingMessagesService);
 
   generateImage(formValue: any) {
@@ -33,7 +35,10 @@ export class Character implements OnDestroy {
 
     this.aiService.generateContent({ concept: 'Character', data: characterInfo })
       .then(async res => {
-        this.generatedImage.set(res);
+        if (res) {
+          this.generatedImage.set(res);
+          this.usageService.recordGeneration();
+        }
         this.isLoading.set(false);
         this.loadingMessagesService.stopCycling();
       })

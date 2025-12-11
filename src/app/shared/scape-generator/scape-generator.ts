@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {NgOptimizedImage, CommonModule} from '@angular/common';
 import {LoadingMessagesService} from '../../services/loading-messages/loading-messages.service';
 import {AuthService} from '../../services/auth/auth.service';
+import {UsageService} from '../../services/usage/usage.service';
 import {take} from "rxjs";
 
 @Component({
@@ -38,10 +39,12 @@ export class ScapeGenerator implements OnInit, OnDestroy {
 
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
+  private usageService = inject(UsageService);
   public loadingMessagesService = inject(LoadingMessagesService);
 
   readonly isAuthed = computed(() => this.authService.isAuthenticated());
   readonly signingIn = signal(false);
+  readonly remainingGenerations = this.usageService.remainingGenerations;
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -57,7 +60,11 @@ export class ScapeGenerator implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    this.generate.emit(this.form.value);
+    if (this.usageService.canGenerate()) {
+      this.generate.emit(this.form.value);
+    } else {
+      this.error.set('You have reached your daily generation limit.');
+    }
   }
 
   signIn(): void {
@@ -65,8 +72,7 @@ export class ScapeGenerator implements OnInit, OnDestroy {
     this.signingIn.set(true);
     this.authService.signInWithGoogle().pipe(take(1)).subscribe({
       next: () => {
-        // After successful sign-in, proceed with generation
-        if (this.form.valid) {
+        if (this.form.valid && this.usageService.canGenerate()) {
           this.generate.emit(this.form.value);
         }
       },
