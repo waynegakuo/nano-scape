@@ -10,6 +10,8 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import {environment} from '../environments/environment.development';
 import {connectFunctionsEmulator, getFunctions, provideFunctions} from '@angular/fire/functions';
+import {getAuth, provideAuth} from '@angular/fire/auth';
+import {getFirestore, provideFirestore} from '@angular/fire/firestore';
 
 const app = initializeApp(environment.firebaseConfig);
 
@@ -28,5 +30,7 @@ export const appConfig: ApplicationConfig = {
       }
       return functions;
     }),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ]
 };

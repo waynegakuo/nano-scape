@@ -1,0 +1,18 @@
+<div class="history-container">
+  <h3>Generation History</h3>
+  @if (history().length > 0) {
+    <ul>
+      @for (item of history(); track item.id) {
+        <li (click)="loadHistoryItem(item)">
+          <img [src]="item.imageUrl" alt="Generated image for {{ item.prompt.data.city || item.prompt.data.characterName || item.prompt.data.companyName || item.prompt.data.team }}" width="50" height="50">
+          <div class="prompt-details">
+            <p><strong>Concept:</strong> {{ item.prompt.concept }}</p>
+            <p><strong>Details:</strong> {{ item.prompt.data.city || item.prompt.data.characterName || item.prompt.data.companyName || item.prompt.data.team }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>No history yet. Generate some images to see them here!</p>
+  }
+</div>

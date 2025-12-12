@@ -15,12 +15,19 @@
         </div>
       }
     </div>
-    <button class="btn btn-primary" type="submit" [disabled]="form.invalid || isLoading()">
+    <button class="btn btn-primary" type="submit" [disabled]="(form.invalid && isAuthed()) || isLoading() || signingIn() || (isAuthed() && remainingGenerations() <= 0)">
       @if (isLoading()) {
         <span class="loading-spinner"></span>
         <span>Generating...</span>
+      } @else if (signingIn()) {
+        <span class="loading-spinner"></span>
+        <span>Signing in...</span>
+      } @else if (!isAuthed()) {
+        <span>Sign in to Generate Image</span>
+      } @else if (remainingGenerations() <= 0) {
+        <span>No Generations Left</span>
       } @else {
-        <span>Generate</span>
+        <span>Generate ({{ remainingGenerations() }} left)</span>
       }
     </button>
   </form>
